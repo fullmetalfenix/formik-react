@@ -37,9 +37,9 @@ const SignupForm = () => {
   // be called when the form is submitted
   const formik = useFormik({
     initialValues: {
-      email: '',
       firstName: '',
       lastName: '',
+      email: '',
     },
     validate,
     onSubmit: values => {
@@ -63,19 +63,16 @@ const SignupForm = () => {
         id="lastName"
         name="lastName"
         type="text"
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        value={formik.values.lastName}
-      />
+        //Works the same as above! Great helper method
+        {...formik.getFieldProps('lastName')}
+/>
       {formik.touched.lastName && formik.errors.lastName ? <div>{formik.errors.lastName}</div> : null}
       <label htmlFor="email">Email Address</label>
       <input
         id="email"
         name="email"
         type="email"
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        value={formik.values.email}
+        {...formik.getFieldProps('email')}
       />
       {formik.touched.email && formik.errors.email ? <div>{formik.errors.email}</div> : null}
       <button type="submit">Submit</button>
