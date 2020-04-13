@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { useFormik } from 'formik';
+import { TextField, MaskedTextField } from 'office-ui-fabric-react/lib/TextField';
+import { PrimaryButton } from 'office-ui-fabric-react';
 
 
 // A custom validation function. This must return an object
@@ -40,6 +42,9 @@ const SignupForm = () => {
       firstName: '',
       lastName: '',
       email: '',
+      //MS Form Field;
+      message: '',
+
     },
     validate,
     onSubmit: values => {
@@ -48,34 +53,21 @@ const SignupForm = () => {
   });
   return (
     <form onSubmit={formik.handleSubmit}>
-      <label htmlFor="firstName">First Name:</label>
-      <input
-        id="firstName"
-        name="firstName"
-        type="text"
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        value={formik.values.firstName}
-      />
+
+      <TextField label="First Name" placeholder="Must be 20 characters or less" {...formik.getFieldProps('firstName')} />
       {formik.touched.firstName && formik.errors.firstName ? <div>{formik.errors.firstName}</div> : null}
-      <label htmlFor="">Last Name:</label>
-      <input
-        id="lastName"
-        name="lastName"
-        type="text"
-        //Works the same as above! Great helper method
-        {...formik.getFieldProps('lastName')}
-/>
+
+      <TextField label="Last Name:" placeholder="Must be 20 characters or less" {...formik.getFieldProps('lastName')} />
       {formik.touched.lastName && formik.errors.lastName ? <div>{formik.errors.lastName}</div> : null}
-      <label htmlFor="email">Email Address</label>
-      <input
-        id="email"
-        name="email"
-        type="email"
-        {...formik.getFieldProps('email')}
-      />
+
+      <TextField type="email" label="Email:"  placeholder="e.x. Example@example.com" {...formik.getFieldProps('email')} />
       {formik.touched.email && formik.errors.email ? <div>{formik.errors.email}</div> : null}
-      <button type="submit">Submit</button>
+
+      <TextField type="textarea" label="Message:" placeholder="Please write your message here and we will get back to you as soon as we can." multiline rows={6} {...formik.getFieldProps('message')} />
+      {formik.touched.email && formik.errors.message ? <div>{formik.errors.message}</div> : null}
+
+      <PrimaryButton style={{margin: "20px 0px", padding: "30px", textTransform: "uppercase"}} text="Submit" type="submit" />
+
     </form>
   );
 };  
